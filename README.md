@@ -8,7 +8,7 @@ Homework.svelte is an app designed to save and manage your homeworks.
 * [Setup](#setup)
 
 ## Live version
-https://nervous-golick-ccc1d8.netlify.app/
+https://musing-edison-d6d14d.netlify.app/
 
 ## General Information
 - help you to manage your homeworks
