@@ -8,7 +8,7 @@ Homework.svelte is an app designed to save and manage your homeworks.
 * [Setup](#setup)
 
 ## Live version
-https://practical-allen-e29c2f.netlify.app/
+https://nervous-golick-ccc1d8.netlify.app/
 
 ## General Information
 - help you to manage your homeworks
@@ -18,16 +18,16 @@ https://practical-allen-e29c2f.netlify.app/
 ## Technologies Used
 - HTML5
 - CSS
-- svelte - version 3.0
-
+- Svelte
 
 ## Features
-List the ready features here:
-- add school subjects with date, start and end time.
+Ready features:
+- add school subjects with date, start and end time
 - add homeworks for each subject
 - set homework deadlines by adding task_text (dd-mm-yyyy)
-- mark homeworks as done and delete all done
-- add up to 3 variables for each subject (e.g. Absences-0-5)
+- mark homeworks as done and clear done
+- add up to 3 variables for each subject
+- set your schedule 
 - your data is saved in localstorage
 
 
