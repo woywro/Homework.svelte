@@ -8,11 +8,9 @@ if (localStorage.subjects == undefined) {
     JSON.stringify([
       {
         name: "ABC IT",
-        day: "wednesday",
+        time: [{ day: "saturday", start: "1100", end: "2000" }],
         id: 1,
         left: 0,
-        start: "0905",
-        end: "1200",
         vars: [
           { name: "Absences", min: 1, max: 3 },
           { name: "plus", min: 1, max: 10 },
@@ -40,11 +38,9 @@ if (localStorage.subjects == undefined) {
       },
       {
         name: "Angielski",
-        day: "tuesday",
+        time: [{ day: "tuesday", start: "1200", end: "1400" }],
         id: 2,
         left: 0,
-        start: "0800",
-        end: "0930",
         vars: [{ name: "absence", min: 0, max: 5 }],
         tasks: [
           {
@@ -63,7 +59,7 @@ if (localStorage.subjects == undefined) {
       },
       {
         name: "Polski",
-        day: "monday",
+        time: [{ day: "sunday", start: "1200", end: "1400" }],
         id: 3,
         left: 1,
         vars: [

@@ -1,7 +1,7 @@
 <script>
-    import { subjects, choosenSubject } from "../stores.js";
-    export let subject;
-function countDaysLeft() {
+  import { subjects, choosenSubject } from "../stores.js";
+  export let subject;
+  function countDaysLeft() {
     $subjects.forEach((subject) => {
       let date = new Date();
       let now = date.getDay();
@@ -14,13 +14,19 @@ function countDaysLeft() {
         "friday",
         "saturday",
       ];
-      let day = days.indexOf(subject.day.toLowerCase());
-      let diff = day - now;
-      diff = diff < 1 ? 7 + diff : diff;
-      subject.left = `${diff}`;
+      subject.time.forEach((el) => {
+        let day = days.indexOf(el.day.toLowerCase());
+        let diff = day - now;
+        diff = diff < 1 ? 7 + diff : diff;
+        subject.left = `${diff}`;
+      });
+      // let day = days.indexOf(subject.day.toLowerCase());
+      // let diff = day - now;
+      // diff = diff < 1 ? 7 + diff : diff;
+      // subject.left = `${diff}`;
     });
-    }
-    countDaysLeft()
+  }
+  countDaysLeft();
 </script>
 
 <p1>{subject.left} days left</p1>

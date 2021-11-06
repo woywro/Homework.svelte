@@ -5,6 +5,7 @@
 </script>
 
 <input
+  type="time"
   disabled="{disabled}"
   on:blur
   bind:value

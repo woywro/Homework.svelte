@@ -1,4 +1,5 @@
 <script>
-    export let checked;
+  export let checked;
 </script>
-<input type="checkbox" bind:checked on:change>
+
+<input type="checkbox" bind:checked on:change />

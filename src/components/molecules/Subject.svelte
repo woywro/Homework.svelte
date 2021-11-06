@@ -1,34 +1,38 @@
 <script>
-import SubjectInfo from "./SubjectInfo.svelte";
-import Button from "../atoms/Button.svelte"
-import { subjects, choosenSubject } from "../stores.js";
-import Input from "../atoms/Input.svelte"
-import SubjectDaysLeft from "../atoms/SubjectDaysLeft.svelte";
-import TaskList from "./TaskList.svelte";
-import SubjectName from "../atoms/SubjectName.svelte"
-import SubjectDay from "../atoms/SubjectDay.svelte";
-export let subject;
+  import SubjectInfo from "./SubjectInfo.svelte";
+  import Button from "../atoms/Button.svelte";
+  import { subjects, choosenSubject } from "../stores.js";
+  import Input from "../atoms/Input.svelte";
+  import SubjectDaysLeft from "../atoms/SubjectDaysLeft.svelte";
+  import TaskList from "./TaskList.svelte";
+  import SubjectName from "../atoms/SubjectName.svelte";
+  import ContentBox from "../atoms/ContentBox.svelte";
+  export let subject;
 
-    function clearDone () {
-        subject.tasks = subject.tasks.filter((task) => task.isDone == false)
-        $subjects = $subjects
-    }
+  function clearDone() {
+    subject.tasks = subject.tasks.filter((task) => task.isDone == false);
+    $subjects = $subjects;
+  }
 
-    function defineCurrentSubject () {
-      let date = new Date();
-      let now = date.getDay();
-      let hours = date.getHours();
-      let minutes = date.getMinutes();
-      let days = [
-        "sunday",
-        "monday",
-        "tuesday",
-        "wednesday",
-        "thursday",
-        "friday",
-        "saturday",
-      ];
-      let dayIndex = days.indexOf(subject.day.toLowerCase());
+  function defineCurrentSubject() {
+    let date = new Date();
+    let now = date.getDay();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let days = [
+      "sunday",
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday",
+      "saturday",
+    ];
+    subject.time.forEach((e) => {
+      let subjectStart = e.start.replace("-", "");
+      let subjectEnd = e.end.replace("-", "");
+      console.log(subjectStart);
+      let dayIndex = days.indexOf(e.day.toLowerCase());
       let diff = dayIndex - now;
       if (minutes.toString().length == 1) {
         minutes = `0${minutes}`;
@@ -37,19 +41,48 @@ export let subject;
         hours = `0${hours}`;
       }
       var todayTime = parseInt(`${hours}${minutes}`);
-      if (todayTime > parseInt(subject.start) && todayTime < parseInt(subject.end) && diff == 0) {
+      console.log(todayTime);
+      if (
+        todayTime > parseInt(subjectStart) &&
+        todayTime < parseInt(subjectEnd) &&
+        diff == 0
+      ) {
         $choosenSubject = `auto: ${subject.name}`;
       }
-    }
-    defineCurrentSubject()
+    });
+  }
+  defineCurrentSubject();
 
-    function deleteSubject() {
-      $subjects = $subjects.filter((sub)=> sub !== subject)
-    }
-
+  function deleteSubject() {
+    $subjects = $subjects.filter((sub) => sub !== subject);
+  }
 </script>
+
+<section>
+  <span>
+    <Button on:click="{clearDone}">clear done</Button>
+    <Button on:click="{() => deleteSubject(subject)}">remove subject</Button>
+  </span>
+  <ContentBox>
+    <span>
+      <SubjectName>{subject.name}</SubjectName>
+      <SubjectDaysLeft subject="{subject}" />
+    </span>
+  </ContentBox>
+  <span>
+    {#each subject.vars as v}
+      <SubjectInfo vars="{v}" />
+    {/each}
+  </span>
+  {#each subject.tasks as task}
+    <span>
+      <TaskList task="{task}" />
+    </span>
+  {/each}
+</section>
+
 <style>
-    section{
+  section {
     background: var(--secondary-color);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     width: 85%;
@@ -58,34 +91,12 @@ export let subject;
     border-radius: 10px;
     display: flex;
     flex-flow: column;
-    }
-    span{
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        flex-flow: row;
-        padding: 5px;
-    }
-  </style>
-
-<section>
-    <span>
-    <SubjectName >{subject.name}</SubjectName>
-    <Button on:click={clearDone}>clear done</Button>
-    <Button on:click={()=>deleteSubject(subject)}>x</Button>
-</span>
-<span>
-    {#each subject.vars as v}
-    <SubjectInfo vars={v}/>
-    {/each}
-    </span>
-    <span>
-    <SubjectDaysLeft subject={subject}/>
-    <SubjectDay subject={subject}></SubjectDay>
-  </span>
-    {#each subject.tasks as task}
-  <span>
-  <TaskList task={task}/>
-  </span>
-    {/each}
-</section>
+  }
+  span {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: row;
+    /* padding: 5px; */
+  }
+</style>

@@ -1,37 +1,60 @@
 <script>
-import ContentBox from "../atoms/ContentBox.svelte";
-import Input from "../atoms/Input.svelte";
-import Button from "../atoms/Button.svelte";
-let variable;
-export let variableArray;
-let isDisabled = false;
+  import ContentBox from "../atoms/ContentBox.svelte";
+  import Input from "../atoms/Input.svelte";
+  import Button from "../atoms/Button.svelte";
+  let variableName;
+  let variableMax;
+  export let variableArray;
+  let isDisabled = false;
 
-function addVar() {
-  variableArray.length == 2 ? isDisabled = true : isDisabled = false
-  let split = variable.split(/-/)
-  let varName = split[0];
-  let varMin = parseInt(split[1]); 
-  let varMax = parseInt(split[2]);
-  if(!isNaN(varMin) && !isNaN(varMax) && varMax > varMin){
-  let newVar = {
-    name: varName, min: varMin, max: varMax
+  function addVar() {
+    variableArray.length == 2 ? (isDisabled = true) : (isDisabled = false);
+    let newVar = {
+      name: variableName,
+      min: 0,
+      max: variableMax,
+    };
+    variableArray = [...variableArray, newVar];
+    variableName = "";
+    variableMax = "";
   }
-  variableArray = [...variableArray, newVar]
-  variable = ''
-}
-}
-function deleteVariable (variable) {
-  variableArray = variableArray.filter((e)=> e.name !== variable.name)
-}
+  function deleteVariable(variable) {
+    variableArray = variableArray.filter((e) => e.name !== variable.name);
+  }
 </script>
+
 <ContentBox>
-    <h1>variables</h1>
-    <p1>You can add up to 3 variables for one subject e.g.(absences-0-5)</p1>
-    <Input bind:value={variable} disabled="{isDisabled}" placeholder={'name-minValue-maxValue'} />
-    <Button  disabled="{isDisabled}" on:click={addVar}>+</Button>
+  <h1>Subject Variables</h1>
+  <Input
+    bind:value="{variableName}"
+    disabled="{isDisabled}"
+    placeholder="{'variable name'}"
+  />
+  <Input
+    bind:value="{variableMax}"
+    disabled="{isDisabled}"
+    placeholder="{'variable maximum'}"
+  />
+  <Button disabled="{isDisabled}" on:click="{addVar}">add variable</Button>
+  <span>
     {#each variableArray as variable}
-    <span>
-    <p1 class="variable" on:click={()=>deleteVariable(variable)}>{variable.name}-{variable.min}-{variable.max} click do delete</p1>
-    </span>
+      <ContentBox>
+        <p1>{variable.name}</p1>
+        <p1>{variable.max}</p1>
+        <Button on:click="{() => deleteVariable(variable)}">del</Button>
+      </ContentBox>
     {/each}
+  </span>
 </ContentBox>
+
+<style>
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row;
+  }
+  h1 {
+    margin: 10px;
+  }
+</style>
