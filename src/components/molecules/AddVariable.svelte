@@ -26,6 +26,7 @@
 <ContentBox>
   <h1>Subject Variables</h1>
   <Input
+    class="margin"
     bind:value="{variableName}"
     disabled="{isDisabled}"
     placeholder="{'variable name'}"
@@ -55,6 +56,9 @@
     flex-flow: row;
   }
   h1 {
+    margin: 10px;
+  }
+  .margin {
     margin: 10px;
   }
 </style>

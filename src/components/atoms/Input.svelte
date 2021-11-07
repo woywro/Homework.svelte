@@ -15,8 +15,9 @@
 
 <style>
   input {
+    margin: 5px;
     border: none;
-    border-bottom: var(--main-color) 3px solid;
+    background: rgba(255, 255, 255, 0.7);
     padding: 10px 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }

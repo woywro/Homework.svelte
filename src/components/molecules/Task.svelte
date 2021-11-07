@@ -2,6 +2,7 @@
   import { subjects, choosenSubject } from "../stores.js";
   import Input from "../atoms/Input.svelte";
   import Checkbox from "../atoms/Checkbox.svelte";
+  import ContentBox from "../atoms/ContentBox.svelte";
 
   export let task;
   function updateInput() {
@@ -51,11 +52,32 @@
   {#if task.left !== ""}
     <p1>{task.left}</p1>
   {/if}
-  <Input
-    bind:value="{task.text}"
-    on:blur="{() => checkInputForDeadline(task)}"
-    on:input="{updateInput}"
-    disabled="{task.isDone}"
-  />
-  <Checkbox bind:checked="{task.isDone}" on:change="{toggleDone}" />
+  <span>
+    <Input
+      bind:value="{task.text}"
+      on:blur="{() => checkInputForDeadline(task)}"
+      on:input="{updateInput}"
+      disabled="{task.isDone}"
+    />
+    <Checkbox bind:checked="{task.isDone}" on:change="{toggleDone}" />
+  </span>
 </div>
+
+<style>
+  div {
+    width: 100%;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background: var(--main-color);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  span {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+  }
+</style>

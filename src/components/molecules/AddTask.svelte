@@ -17,6 +17,7 @@
       choosen[0].tasks.push(newTask);
       $subjects = $subjects;
     }
+    inputText = "";
   }
 </script>
 
