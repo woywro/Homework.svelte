@@ -20,16 +20,16 @@
   }
 </script>
 
-<section>
+<div>
   <p1>{$choosenSubject}</p1>
   <span>
-    <Button on:click="{addTask}">add</Button>
+    <Button on:click="{addTask}">add task</Button>
     <Input placeholder="type in your homework" bind:value="{inputText}" />
   </span>
-</section>
+</div>
 
 <style>
-  section {
+  div {
     background-color: var(--secondary-color);
     position: sticky;
     bottom: 0;
@@ -44,7 +44,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 80%;
+    width: 90%;
   }
   p1 {
     padding: 10px;

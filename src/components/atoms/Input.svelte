@@ -9,6 +9,7 @@
   on:blur
   bind:value
   on:input
+  on:click
   placeholder="{placeholder}"
 />
 

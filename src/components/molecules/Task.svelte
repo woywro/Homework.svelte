@@ -41,6 +41,7 @@
       $subjects = $subjects;
     } else {
       task.left = "";
+      console.log(task);
     }
   }
   checkInputForDeadline(task);

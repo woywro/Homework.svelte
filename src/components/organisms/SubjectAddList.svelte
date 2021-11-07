@@ -6,6 +6,7 @@
   import { subjects } from "../stores.js";
   import InputLabel from "../atoms/InputLabel.svelte";
   import ContentBox from "../atoms/ContentBox.svelte";
+  import { Router, Link, Route, navigate } from "svelte-routing";
 
   let nameInput = "";
   let variableArray = [];
@@ -32,6 +33,7 @@
       console.log("added");
     }
     console.log($subjects);
+    navigate("/", { replace: true });
   }
 </script>
 
@@ -48,6 +50,7 @@
     display: flex;
     justify-content: center;
     flex-flow: column;
-    padding: 20px;
+    width: 100%;
+    padding: 30px;
   }
 </style>

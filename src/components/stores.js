@@ -1,4 +1,4 @@
-import { writable } from "svelte/store";
+import { readable, writable } from "svelte/store";
 
 const stored = localStorage.subjects;
 
@@ -93,3 +93,5 @@ subjects.subscribe((value) => (localStorage.subjects = JSON.stringify(value)));
 export const choosenSubject = writable("choose subject");
 
 export const theme = writable("#ffd230");
+
+export const info = readable(["Click on subject name to add homework", "Hi, how are you?", "Set homework deadline by adding it in"])

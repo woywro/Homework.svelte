@@ -12,7 +12,7 @@
     color: var(--secondary-color);
     cursor: pointer;
     font-size: 18px;
-    padding: 4px;
+    padding: 6px;
     border: none;
   }
 </style>

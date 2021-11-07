@@ -18,7 +18,7 @@
   }
 </script>
 
-<section>
+<div>
   <span>
     <h1>{vars.name}</h1>
     <p1>{vars.min}/{vars.max}</p1>
@@ -27,10 +27,10 @@
     <Button on:click="{addCurrent}">+</Button>
     <Button on:click="{minusCurrent}">-</Button>
   </span>
-</section>
+</div>
 
 <style>
-  section {
+  div {
     cursor: pointer;
     padding: 10px;
     border-radius: 20px;

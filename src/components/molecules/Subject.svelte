@@ -1,12 +1,13 @@
 <script>
-  import SubjectInfo from "./SubjectInfo.svelte";
+  import SubjectVariable from "./SubjectVariable.svelte";
   import Button from "../atoms/Button.svelte";
   import { subjects, choosenSubject } from "../stores.js";
   import Input from "../atoms/Input.svelte";
   import SubjectDaysLeft from "../atoms/SubjectDaysLeft.svelte";
-  import TaskList from "./TaskList.svelte";
+  import Task from "./Task.svelte";
   import SubjectName from "../atoms/SubjectName.svelte";
   import ContentBox from "../atoms/ContentBox.svelte";
+
   export let subject;
 
   function clearDone() {
@@ -71,12 +72,12 @@
   </ContentBox>
   <span>
     {#each subject.vars as v}
-      <SubjectInfo vars="{v}" />
+      <SubjectVariable vars="{v}" />
     {/each}
   </span>
   {#each subject.tasks as task}
     <span>
-      <TaskList task="{task}" />
+      <Task task="{task}" />
     </span>
   {/each}
 </section>
