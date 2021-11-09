@@ -7,10 +7,22 @@
   import Task from "./Task.svelte";
   import SubjectName from "../atoms/SubjectName.svelte";
   import ContentBox from "../atoms/ContentBox.svelte";
-
+  import { db } from "../../firebase";
+  import { user } from "../stores";
   export let subject;
 
   function clearDone() {
+    console.log(subject);
+    const subjectTasks = JSON.parse(JSON.stringify(subject.tasks));
+    const doneTasks = subjectTasks.filter((task) => task.isDone == true);
+    console.log(doneTasks);
+    doneTasks.forEach((task) => {
+      db.collection("users")
+        .doc($user)
+        .collection("tasks")
+        .doc(task.id)
+        .delete();
+    });
     subject.tasks = subject.tasks.filter((task) => task.isDone == false);
     $subjects = $subjects;
   }
@@ -55,6 +67,18 @@
   defineCurrentSubject();
 
   function deleteSubject() {
+    subject.tasks.forEach((task) => {
+      db.collection("users")
+        .doc($user)
+        .collection("tasks")
+        .doc(task.id)
+        .delete();
+    });
+    db.collection("users")
+      .doc($user)
+      .collection("subjects")
+      .doc(subject.id)
+      .delete();
     $subjects = $subjects.filter((sub) => sub !== subject);
   }
 </script>

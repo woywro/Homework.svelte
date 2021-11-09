@@ -1,8 +1,29 @@
 <script>
-  import { subjects, choosenSubject } from "../stores.js";
+  import { subjects, choosenSubject, user } from "../stores.js";
   import Button from "../atoms/Button.svelte";
   import Input from "../atoms/Input.svelte";
+  import { db, auth, app } from "../../firebase";
   let inputText = "";
+
+  function addTaskFireBase() {
+    db.collection("users")
+      .doc($user)
+      .collection("tasks")
+      .doc()
+      .set({
+        parent: $choosenSubject,
+        text: inputText,
+        isDone: false,
+        date: "",
+        left: "",
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  }
 
   function addTask() {
     let choosen = $subjects.filter((s) => s.name == $choosenSubject);
@@ -16,6 +37,7 @@
     if (choosen[0] !== undefined) {
       choosen[0].tasks.push(newTask);
       $subjects = $subjects;
+      addTaskFireBase(choosen[0]);
     }
     inputText = "";
   }

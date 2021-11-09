@@ -1,15 +1,23 @@
 <script>
-  import { subjects, choosenSubject } from "../stores.js";
+  import { subjects, choosenSubject, user } from "../stores.js";
   import Input from "../atoms/Input.svelte";
   import Checkbox from "../atoms/Checkbox.svelte";
   import ContentBox from "../atoms/ContentBox.svelte";
+  import { db, auth, app } from "../../firebase";
 
   export let task;
   function updateInput() {
+    db.collection("users/" + $user + "/tasks")
+      .doc(task.id)
+      .update({ text: task.text });
     $subjects = $subjects;
   }
 
-  function toggleDone() {
+  function toggleDone(task) {
+    db.collection("users/" + $user + "/tasks")
+      .doc(task.id)
+      .update({ isDone: task.isDone });
+    console.log(task.id);
     $subjects = $subjects;
   }
 
@@ -55,11 +63,16 @@
   <span>
     <Input
       bind:value="{task.text}"
-      on:blur="{() => checkInputForDeadline(task)}"
-      on:input="{updateInput}"
+      on:blur="{() => {
+        checkInputForDeadline(task);
+        updateInput();
+      }}"
       disabled="{task.isDone}"
     />
-    <Checkbox bind:checked="{task.isDone}" on:change="{toggleDone}" />
+    <Checkbox
+      bind:checked="{task.isDone}"
+      on:change="{() => toggleDone(task)}"
+    />
   </span>
 </div>
 

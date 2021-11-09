@@ -1,18 +1,34 @@
 <script>
   import { Router, Link, Route } from "svelte-routing";
+  import Login from "./pages/Login.svelte";
   export let url = "";
   import Home from "./pages/Home.svelte";
   import AddSubject from "./pages/AddSubject.svelte";
+  import { auth, db } from "./firebase";
+  import { subjects, user } from "./components/stores";
+  const logout = () => auth.signOut();
 </script>
 
 <Router url="{url}">
-  <nav>
-    <Link to="/">Home</Link>
-    <Link to="add">Add Subject</Link>
-  </nav>
   <div>
-    <Route path="/" component="{Home}" />
-    <Route path="add" component="{AddSubject}" />
+    <div>
+      {#if $user == ""}
+        <Login />
+      {:else}
+        <div>
+          <div>zalogowany {$user}</div>
+          <button on:click="{logout}">logout</button>
+        </div>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="add">Add Subject</Link>
+        </nav>
+        <div>
+          <Route path="/" component="{Home}" />
+          <Route path="add" component="{AddSubject}" />
+        </div>
+      {/if}
+    </div>
   </div>
 </Router>
 

@@ -7,15 +7,48 @@
   import InputLabel from "../atoms/InputLabel.svelte";
   import ContentBox from "../atoms/ContentBox.svelte";
   import { Router, Link, Route, navigate } from "svelte-routing";
+  import { app, db, auth } from "../../firebase";
+  import { user } from "../stores";
 
   let nameInput = "";
   let variableArray = [];
   let subjectTimeArray = [];
   let newSub = {};
+
+  function addSubjectDaysFirebase() {
+    subjectTimeArray.forEach((element) => {
+      db.collection("users").doc($user).collection("days").doc().set({
+        parent: nameInput,
+        day: element.day,
+        start: element.start,
+        end: element.end,
+      });
+      $subjects = $subjects;
+    });
+  }
+
+  function addSubjectFireBase() {
+    db.collection("users")
+      .doc($user)
+      .collection("subjects")
+      .doc()
+      .set({
+        name: nameInput,
+        left: "",
+        time: [],
+        vars: [],
+        tasks: [],
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  }
   function addSubject() {
     newSub = {
       name: nameInput,
-      id: 1,
       left: 0,
       time: subjectTimeArray,
       vars: variableArray,
@@ -30,7 +63,8 @@
       console.log("wpisz coś");
     } else {
       $subjects = [...$subjects, newSub];
-      console.log("added");
+      addSubjectFireBase();
+      addSubjectDaysFirebase();
     }
     console.log($subjects);
     navigate("/", { replace: true });
@@ -40,7 +74,7 @@
 <section>
   <InputLabel inputName="name">Name of your subject</InputLabel>
   <Input name="name" bind:value="{nameInput}" placeholder="{'name'}" />
-  <AddTime bind:subjectTimeArray />
+  <AddTime bind:subjectTimeArray nameInput="{nameInput}" />
   <AddVariable bind:variableArray />
   <Button on:click="{addSubject}">add</Button>
 </section>
