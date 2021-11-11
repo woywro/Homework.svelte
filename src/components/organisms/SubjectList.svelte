@@ -1,5 +1,5 @@
 <script>
-  import { subjects, choosenSubject } from "../stores.js";
+  import { subjects, choosenSubject } from "../../stores.js";
   import AddTask from "../molecules/AddTask.svelte";
   import Subject from "../molecules/Subject.svelte";
 </script>

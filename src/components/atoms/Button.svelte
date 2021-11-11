@@ -2,7 +2,7 @@
   export let disabled;
 </script>
 
-<button disabled="{disabled}" on:click><slot /></button>
+<button disabled="{disabled}" on:click|preventDefault><slot /></button>
 
 <style>
   button {

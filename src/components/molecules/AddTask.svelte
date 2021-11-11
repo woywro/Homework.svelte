@@ -1,5 +1,5 @@
 <script>
-  import { subjects, choosenSubject, user } from "../stores.js";
+  import { subjects, choosenSubject, user } from "../../stores.js";
   import Button from "../atoms/Button.svelte";
   import Input from "../atoms/Input.svelte";
   import { db, auth, app } from "../../firebase";

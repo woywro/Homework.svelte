@@ -1,14 +1,15 @@
 <script>
   import SubjectVariable from "./SubjectVariable.svelte";
   import Button from "../atoms/Button.svelte";
-  import { subjects, choosenSubject } from "../stores.js";
+  import { subjects, choosenSubject } from "../../stores.js";
   import Input from "../atoms/Input.svelte";
   import SubjectDaysLeft from "../atoms/SubjectDaysLeft.svelte";
   import Task from "./Task.svelte";
   import SubjectName from "../atoms/SubjectName.svelte";
   import ContentBox from "../atoms/ContentBox.svelte";
   import { db } from "../../firebase";
-  import { user } from "../stores";
+  import { user } from "../../stores";
+  import { deleteFirebase } from "../../firebase";
   export let subject;
 
   function clearDone() {
@@ -17,11 +18,7 @@
     const doneTasks = subjectTasks.filter((task) => task.isDone == true);
     console.log(doneTasks);
     doneTasks.forEach((task) => {
-      db.collection("users")
-        .doc($user)
-        .collection("tasks")
-        .doc(task.id)
-        .delete();
+      deleteFirebase($user, "tasks", task.id);
     });
     subject.tasks = subject.tasks.filter((task) => task.isDone == false);
     $subjects = $subjects;
@@ -68,17 +65,15 @@
 
   function deleteSubject() {
     subject.tasks.forEach((task) => {
-      db.collection("users")
-        .doc($user)
-        .collection("tasks")
-        .doc(task.id)
-        .delete();
+      deleteFirebase($user, "tasks", task.id);
     });
-    db.collection("users")
-      .doc($user)
-      .collection("subjects")
-      .doc(subject.id)
-      .delete();
+    subject.vars.forEach((variable) => {
+      deleteFirebase($user, "vars", variable.id);
+    });
+    subject.time.forEach((day) => {
+      deleteFirebase($user, "days", day.id);
+    });
+    deleteFirebase($user, "subjects", subject.id);
     $subjects = $subjects.filter((sub) => sub !== subject);
   }
 </script>

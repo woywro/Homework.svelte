@@ -1,19 +1,27 @@
 <script>
   import Button from "../atoms/Button.svelte";
-  import { subjects } from "../stores.js";
+  import { subjects } from "../../stores.js";
+  import { user } from "../../stores";
+  import { app, db, auth } from "../../firebase";
+  import { updateFirebase } from "../../firebase";
+
   export let vars;
   function addCurrent() {
-    if (vars.max == vars.min) {
+    if (vars.max == vars.current) {
     } else {
-      vars.min += 1;
-      $subjects = $subjects;
+      vars.current += 1;
+      updateFirebase($user, $subjects, "vars", vars.id, {
+        current: vars.current,
+      });
     }
   }
   function minusCurrent() {
-    if (0 >= vars.min) {
+    if (0 >= vars.current) {
     } else {
-      vars.min -= 1;
-      $subjects = $subjects;
+      vars.current -= 1;
+      updateFirebase($user, $subjects, "vars", vars.id, {
+        current: vars.current,
+      });
     }
   }
 </script>
@@ -21,7 +29,7 @@
 <div>
   <span>
     <h1>{vars.name}</h1>
-    <p1>{vars.min}/{vars.max}</p1>
+    <p1>{vars.current}/{vars.max}</p1>
   </span>
   <span>
     <Button on:click="{addCurrent}">+</Button>

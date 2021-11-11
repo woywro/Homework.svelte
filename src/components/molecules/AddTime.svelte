@@ -4,7 +4,7 @@
   import TimeInput from "../atoms/TimeInput.svelte";
   import ContentBox from "../atoms/ContentBox.svelte";
   import { app, db, auth } from "../../firebase";
-  import { user, choosenSubject } from "../stores";
+  import { user, choosenSubject } from "../../stores";
 
   export let subjectTimeArray;
   let dayInput = "monday";

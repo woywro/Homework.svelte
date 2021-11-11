@@ -1,5 +1,4 @@
 import { readable, writable } from "svelte/store";
-import {db} from "../firebase"
 
 // const stored = localStorage.subjects;
 
@@ -93,3 +92,4 @@ export const theme = writable("#ffd230");
 export const info = readable(["Click on subject name to add homework", "Hi, how are you?", "Set homework deadline by adding it in"])
 
 export let user = writable("")
+

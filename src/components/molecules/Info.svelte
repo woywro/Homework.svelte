@@ -1,5 +1,5 @@
 <script>
-  import { info } from "../stores";
+  import { info } from "../../stores";
   import { fade } from "svelte/transition";
   let message = "messages will be here";
   let visible = true;

@@ -11,7 +11,7 @@
     variableArray.length == 2 ? (isDisabled = true) : (isDisabled = false);
     let newVar = {
       name: variableName,
-      min: 0,
+      current: 0,
       max: variableMax,
     };
     variableArray = [...variableArray, newVar];

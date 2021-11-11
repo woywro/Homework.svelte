@@ -3,12 +3,11 @@
   import AddVariable from "../molecules/AddVariable.svelte";
   import Input from "../atoms/Input.svelte";
   import Button from "../atoms/Button.svelte";
-  import { subjects } from "../stores.js";
+  import { subjects } from "../../stores.js";
   import InputLabel from "../atoms/InputLabel.svelte";
-  import ContentBox from "../atoms/ContentBox.svelte";
-  import { Router, Link, Route, navigate } from "svelte-routing";
-  import { app, db, auth } from "../../firebase";
-  import { user } from "../stores";
+  import { navigate } from "svelte-routing";
+  import { user } from "../../stores";
+  import { setFirebase } from "../../firebase";
 
   let nameInput = "";
   let variableArray = [];
@@ -17,34 +16,32 @@
 
   function addSubjectDaysFirebase() {
     subjectTimeArray.forEach((element) => {
-      db.collection("users").doc($user).collection("days").doc().set({
+      setFirebase($user, $subjects, "days", {
         parent: nameInput,
         day: element.day,
         start: element.start,
         end: element.end,
       });
-      $subjects = $subjects;
     });
   }
-
-  function addSubjectFireBase() {
-    db.collection("users")
-      .doc($user)
-      .collection("subjects")
-      .doc()
-      .set({
-        name: nameInput,
-        left: "",
-        time: [],
-        vars: [],
-        tasks: [],
-      })
-      .then(() => {
-        console.log("Document successfully written!");
-      })
-      .catch((error) => {
-        console.error("Error writing document: ", error);
+  function addSubjectVarsFirebase() {
+    variableArray.forEach((element) => {
+      setFirebase($user, $subjects, "vars", {
+        parent: nameInput,
+        name: element.name,
+        current: 0,
+        max: element.max,
       });
+    });
+  }
+  function addSubjectFireBase() {
+    setFirebase($user, $subjects, "subjects", {
+      name: nameInput,
+      left: "",
+      time: [],
+      vars: [],
+      tasks: [],
+    });
   }
   function addSubject() {
     newSub = {
@@ -65,8 +62,8 @@
       $subjects = [...$subjects, newSub];
       addSubjectFireBase();
       addSubjectDaysFirebase();
+      addSubjectVarsFirebase();
     }
-    console.log($subjects);
     navigate("/", { replace: true });
   }
 </script>

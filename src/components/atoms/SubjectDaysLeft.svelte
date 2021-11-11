@@ -1,5 +1,5 @@
 <script>
-  import { subjects, choosenSubject } from "../stores.js";
+  import { subjects, choosenSubject } from "../../stores.js";
   export let subject;
   function countDaysLeft() {
     $subjects.forEach((subject) => {
@@ -20,10 +20,6 @@
         diff = diff < 1 ? 7 + diff : diff;
         subject.left = `${diff}`;
       });
-      // let day = days.indexOf(subject.day.toLowerCase());
-      // let diff = day - now;
-      // diff = diff < 1 ? 7 + diff : diff;
-      // subject.left = `${diff}`;
     });
   }
   countDaysLeft();

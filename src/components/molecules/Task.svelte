@@ -1,24 +1,16 @@
 <script>
-  import { subjects, choosenSubject, user } from "../stores.js";
+  import { subjects, user } from "../../stores.js";
   import Input from "../atoms/Input.svelte";
   import Checkbox from "../atoms/Checkbox.svelte";
-  import ContentBox from "../atoms/ContentBox.svelte";
-  import { db, auth, app } from "../../firebase";
+  import { updateFirebase } from "../../firebase";
 
   export let task;
   function updateInput() {
-    db.collection("users/" + $user + "/tasks")
-      .doc(task.id)
-      .update({ text: task.text });
-    $subjects = $subjects;
+    updateFirebase($user, $subjects, "tasks", task.id, { text: task.text });
   }
 
   function toggleDone(task) {
-    db.collection("users/" + $user + "/tasks")
-      .doc(task.id)
-      .update({ isDone: task.isDone });
-    console.log(task.id);
-    $subjects = $subjects;
+    updateFirebase($user, $subjects, "tasks", task.id, { isDone: task.isDone });
   }
 
   function getNumberOfDays(start, end) {
@@ -50,7 +42,6 @@
       $subjects = $subjects;
     } else {
       task.left = "";
-      console.log(task);
     }
   }
   checkInputForDeadline(task);
