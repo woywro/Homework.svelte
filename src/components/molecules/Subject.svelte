@@ -51,7 +51,6 @@
         hours = `0${hours}`;
       }
       var todayTime = parseInt(`${hours}${minutes}`);
-      console.log(todayTime);
       if (
         todayTime > parseInt(subjectStart) &&
         todayTime < parseInt(subjectEnd) &&

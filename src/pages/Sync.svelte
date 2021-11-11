@@ -1,15 +1,12 @@
 <script>
   import "firebase/auth";
-  import { app, db, auth } from "../firebase";
+  import { auth } from "../firebase";
   import { subjects } from "../stores";
   import ContentBox from "../components/atoms/ContentBox.svelte";
   import { user } from "../stores";
   import Button from "../components/atoms/Button.svelte";
   import Input from "../components/atoms/Input.svelte";
-  import { navigate } from "svelte-routing";
-  import { onMount } from "svelte";
   import PageTitle from "../components/atoms/PageTitle.svelte";
-  import InputLabel from "../components/atoms/InputLabel.svelte";
   let error = null;
   let emailInput;
   let passwordInput;
@@ -26,8 +23,8 @@
     try {
       error = null;
       console.log("trying");
-      // await loginWithEmailPassword(emailInput, passwordInput);
-      await loginWithEmailPassword("woywro@gmail.com", "rrreee");
+      await loginWithEmailPassword(emailInput, passwordInput);
+      // await loginWithEmailPassword("test@test.pl", "test1234");
       emailInput = "";
       passwordInput = "";
     } catch (err) {

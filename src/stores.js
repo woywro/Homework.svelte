@@ -93,3 +93,4 @@ export const info = readable(["Click on subject name to add homework", "Hi, how 
 
 export let user = writable("")
 
+export let isCompleted = writable(false)
