@@ -43,3 +43,4 @@ Ready features:
 ## Setup
 npm install
 npm install --save svelte-routing
+To log in type email:test@test.pl password:test1234 
