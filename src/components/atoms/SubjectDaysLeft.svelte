@@ -1,5 +1,4 @@
-<script>
-  import { subjects, choosenSubject } from "../../stores.js";
+<script lang="ts">
   export let subject;
   function countDaysLeft() {
     let date = new Date();
@@ -20,7 +19,6 @@
       subject.left = `${diff}`;
     });
   }
-  // countDaysLeft();
   window.setTimeout(countDaysLeft, 2000);
 </script>
 

@@ -1,22 +1,18 @@
-<script>
+<script lang="ts">
   import SubjectVariable from "./SubjectVariable.svelte";
   import Button from "../atoms/Button.svelte";
   import { subjects, choosenSubject } from "../../stores.js";
-  import Input from "../atoms/Input.svelte";
   import SubjectDaysLeft from "../atoms/SubjectDaysLeft.svelte";
   import Task from "./Task.svelte";
   import SubjectName from "../atoms/SubjectName.svelte";
   import ContentBox from "../atoms/ContentBox.svelte";
-  import { db } from "../../firebase";
   import { user } from "../../stores";
   import { deleteFirebase } from "../../firebase";
   export let subject;
 
   function clearDone() {
-    console.log(subject);
     const subjectTasks = JSON.parse(JSON.stringify(subject.tasks));
     const doneTasks = subjectTasks.filter((task) => task.isDone == true);
-    console.log(doneTasks);
     doneTasks.forEach((task) => {
       deleteFirebase($user, "tasks", task.id);
     });
@@ -45,10 +41,10 @@
       let dayIndex = days.indexOf(e.day.toLowerCase());
       let diff = dayIndex - now;
       if (minutes.toString().length == 1) {
-        minutes = `0${minutes}`;
+        minutes = parseInt(`0${minutes}`);
       }
       if (hours.toString().length < 1) {
-        hours = `0${hours}`;
+        hours = parseInt(`0${hours}`);
       }
       var todayTime = parseInt(`${hours}${minutes}`);
       if (

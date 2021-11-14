@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Button from "../atoms/Button.svelte";
   import { subjects } from "../../stores.js";
   import { user } from "../../stores";

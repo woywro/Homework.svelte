@@ -1,28 +1,18 @@
-<script>
+<script lang="ts">
   import { subjects, choosenSubject, user } from "../../stores.js";
   import Button from "../atoms/Button.svelte";
   import Input from "../atoms/Input.svelte";
-  import { db, auth, app } from "../../firebase";
-  let inputText = "";
+  import { db, setFirebase } from "../../firebase";
+  let inputText: string;
 
   function addTaskFireBase() {
-    db.collection("users")
-      .doc($user)
-      .collection("tasks")
-      .doc()
-      .set({
-        parent: $choosenSubject,
-        text: inputText,
-        isDone: false,
-        date: "",
-        left: "",
-      })
-      .then(() => {
-        console.log("Document successfully written!");
-      })
-      .catch((error) => {
-        console.error("Error writing document: ", error);
-      });
+    db.collection("users").doc($user).collection("tasks").doc().set({
+      parent: $choosenSubject,
+      text: inputText,
+      isDone: false,
+      date: "",
+      left: "",
+    });
   }
 
   function addTask() {

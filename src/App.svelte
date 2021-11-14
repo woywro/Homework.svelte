@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Router, Link, Route } from "svelte-routing";
   import Sync from "./pages/Sync.svelte";
   export let url = "";

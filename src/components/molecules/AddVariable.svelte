@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
   import ContentBox from "../atoms/ContentBox.svelte";
   import Input from "../atoms/Input.svelte";
   import Button from "../atoms/Button.svelte";
-  let variableName;
-  let variableMax;
   export let variableArray;
+  let variableName: string;
+  let variableMax: number;
   let isDisabled = false;
 
   function addVar() {
@@ -16,7 +16,7 @@
     };
     variableArray = [...variableArray, newVar];
     variableName = "";
-    variableMax = "";
+    variableMax = 0;
   }
   function deleteVariable(variable) {
     variableArray = variableArray.filter((e) => e.name !== variable.name);
@@ -26,7 +26,6 @@
 <ContentBox>
   <h1>Subject Variables</h1>
   <Input
-    class="margin"
     bind:value="{variableName}"
     disabled="{isDisabled}"
     placeholder="{'variable name'}"
@@ -56,9 +55,6 @@
     flex-flow: row;
   }
   h1 {
-    margin: 10px;
-  }
-  .margin {
     margin: 10px;
   }
 </style>

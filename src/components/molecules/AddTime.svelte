@@ -1,15 +1,13 @@
-<script>
+<script lang="ts">
   import Button from "../atoms/Button.svelte";
   import SelectInput from "../atoms/SelectInput.svelte";
   import TimeInput from "../atoms/TimeInput.svelte";
   import ContentBox from "../atoms/ContentBox.svelte";
-  import { app, db, auth } from "../../firebase";
-  import { user, choosenSubject } from "../../stores";
 
   export let subjectTimeArray;
   let dayInput = "monday";
-  let startInput = "";
-  let endInput = "";
+  let startInput: number;
+  let endInput: number;
 
   function addSubjectDay() {
     subjectTimeArray = [

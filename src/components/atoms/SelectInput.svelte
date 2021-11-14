@@ -3,7 +3,6 @@
   export let value;
   export let disabled;
   export let list;
-  console.log(list);
 </script>
 
 <select

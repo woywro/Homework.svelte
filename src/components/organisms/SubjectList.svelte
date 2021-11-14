@@ -1,9 +1,8 @@
-<script>
+<script lang="ts">
   import { subjects, choosenSubject } from "../../stores.js";
   import AddTask from "../molecules/AddTask.svelte";
   import Subject from "../molecules/Subject.svelte";
   import { isCompleted } from "../../stores";
-  console.log($isCompleted);
 </script>
 
 <section>

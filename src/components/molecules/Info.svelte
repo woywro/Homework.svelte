@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { info } from "../../stores";
   import { fade } from "svelte/transition";
   let message = "messages will be here";

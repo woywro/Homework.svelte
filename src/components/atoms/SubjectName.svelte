@@ -1,5 +1,5 @@
 <script>
-  import { subjects, choosenSubject } from "../../stores.js";
+  import { choosenSubject } from "../../stores.js";
 
   function chooseCurrentSubject() {
     $choosenSubject = this.textContent;

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import AddTime from "../molecules/AddTime.svelte";
   import AddVariable from "../molecules/AddVariable.svelte";
   import Input from "../atoms/Input.svelte";
@@ -9,10 +9,9 @@
   import { user } from "../../stores";
   import { setFirebase } from "../../firebase";
 
-  let nameInput = "";
+  let nameInput: string;
   let variableArray = [];
   let subjectTimeArray = [];
-  let newSub = {};
 
   function addSubjectDaysFirebase() {
     subjectTimeArray.forEach((element) => {
@@ -44,7 +43,7 @@
     });
   }
   function addSubject() {
-    newSub = {
+    let newSub = {
       name: nameInput,
       left: 0,
       time: subjectTimeArray,

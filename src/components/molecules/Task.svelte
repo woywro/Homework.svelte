@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { subjects, user } from "../../stores.js";
   import Input from "../atoms/Input.svelte";
   import Checkbox from "../atoms/Checkbox.svelte";
@@ -13,7 +13,7 @@
     updateFirebase($user, $subjects, "tasks", task.id, { isDone: task.isDone });
   }
 
-  function getNumberOfDays(start, end) {
+  function getNumberOfDays(start: string, end: string) {
     const date1 = new Date(start);
     const date2 = new Date(end);
     const oneDay = 1000 * 60 * 60 * 24;
@@ -33,9 +33,9 @@
       let taskDay = parseInt(taskDateSplit[0]);
       let taskMonth = parseInt(taskDateSplit[1]);
       let taskYear = parseInt(taskDateSplit[2]);
-      let day = parseInt(date.getDate());
-      let month = parseInt(date.getMonth() + 1);
-      let year = parseInt(date.getFullYear());
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
       let startDate = `${month}/${day}/${year}`;
       let endDate = `${taskMonth}/${taskDay}/${taskYear}`;
       task.left = getNumberOfDays(startDate, endDate);
@@ -44,7 +44,6 @@
       task.left = "";
     }
   }
-  checkInputForDeadline(task);
 </script>
 
 <div>
